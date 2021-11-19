@@ -1,16 +1,14 @@
 const express = require('express');
 const path = require('path');
-// const routes = require('./routes');
-
 const { ApolloServer } = require('apollo-server-express');
 
-const { typeDefs, resolvers } = require('./schemas')
+const { typeDefs, resolvers } = require('./schemas');
+
+const { authMiddleware } = require('./utils/auth');
 const db = require('./config/connection');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
-
 
 async function apolloServer() {
 //new instance of apollo server with GraphQL schema 
