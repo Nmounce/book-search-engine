@@ -16,8 +16,5 @@
   "homepage": "https://github.com/Nmounce/book-search-engine#readme",
   "devDependencies": {
     "concurrently": "^5.1.0"
-  },
-  "dependencies": {
-    "node": "^17.1.0"
   }
 }
