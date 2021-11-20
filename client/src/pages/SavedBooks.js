@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
+import { useQuery, useMutation } from '@apollo/client'
+import { GET_ME } from '../utils/queries.js';
+import { REMOVE_BOOK } from '../utils/mutations.js';
 
 import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
@@ -10,7 +13,7 @@ const SavedBooks = () => {
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
   const userData = data?.me || [];
 
-  const handleDeleteBook = async (BookId) => {
+  const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -19,10 +22,10 @@ const SavedBooks = () => {
 
     try {
       const { data } = await removeBook({
-        variables: { bookID }
+        variables: { bookId }
       });
 
-      removeBookId(BookId);
+      removeBookId(bookId);
     } catch (err) {
       console.error(err);
     }
