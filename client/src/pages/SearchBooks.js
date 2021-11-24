@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
+import { Container, Col, Row, Form, Button, Card} from 'react-bootstrap';
 
 import Auth from '../utils/auth';
 import { searchGoogleBooks } from '../utils/API';
@@ -71,13 +71,13 @@ const SearchBooks = () => {
 
     try {
       // const response = await saveBook(bookToSave, token);
-      // const response = await saveBook({
-      //   variables: { input: bookToSave }
-      // });
+      const response = await saveBook({
+        variables: { input: bookToSave }
+      });
 
-      // if (!response.ok) {
-      //   throw new Error('something went wrong!');
-      // }
+      if (!response.ok) {
+        throw new Error('something went wrong!');
+      }
 
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
@@ -88,11 +88,11 @@ const SearchBooks = () => {
 
   return (
     <>
-      <Jumbotron fluid className='text-light bg-dark'>
+      <div fluid className='jumbotron text-light bg-dark'>
         <Container>
           <h1>Search for Books!</h1>
           <Form onSubmit={handleFormSubmit}>
-            <Form.Row>
+            <Row>
               <Col xs={12} md={8}>
                 <Form.Control
                   name='searchInput'
@@ -108,10 +108,10 @@ const SearchBooks = () => {
                   Submit Search
                 </Button>
               </Col>
-            </Form.Row>
+            </Row>
           </Form>
         </Container>
-      </Jumbotron>
+      </div>
 
       <Container>
         <h2>
@@ -119,7 +119,7 @@ const SearchBooks = () => {
             ? `Viewing ${searchedBooks.length} results:`
             : 'Search for a book to begin'}
         </h2>
-        <CardColumns>
+        <Col>
           {searchedBooks.map((book) => {
             return (
               <Card key={book.bookId} border='dark'>
@@ -144,7 +144,7 @@ const SearchBooks = () => {
               </Card>
             );
           })}
-        </CardColumns>
+        </Col>
       </Container>
     </>
   );

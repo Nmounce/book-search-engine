@@ -24,6 +24,11 @@ apolloServer();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/build/index.html "));
+});
+
 db.once('open', () => {
   app.listen(PORT, () => {
     console.log(`API server listening on ${PORT}`);
